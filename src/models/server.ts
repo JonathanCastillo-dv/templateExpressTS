@@ -1,8 +1,10 @@
 import express from 'express';
 import cors from 'cors';
+import user from '../routes/user';
+import { dbConnection } from '../database/config';
 class Server{
     private app = express();
-    private port = process.env.PORT || 3000;
+    private port = process.env.PORT;
     private userRouterPath = '/api/users';
     constructor(){
 //Conexión a la base de datos
@@ -14,7 +16,7 @@ class Server{
     }
 
     async conectarDB(){
-        // await dbConnection();
+        await dbConnection();
     }
     middlewares(){
         this.app.use(express.json());
@@ -22,11 +24,11 @@ class Server{
         this.app.use(express.static('public'));
     }
     routes(){
-        this.app.use(this.userRouterPath,require('../routes/user'));
+        this.app.use(this.userRouterPath,user);
     }
     listem(){
-        this.app.listen(this.port, () => console.log(`Server running on http://localhost:${this.port}`))
+        this.app.listen(this.port, () => console.log(`Server running on http://localhost:${this.port}`.bgGreen))
     }
 }
 
-module.exports = Server;
+export default  Server;
