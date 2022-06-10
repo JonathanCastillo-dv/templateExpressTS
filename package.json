@@ -1,6 +1,6 @@
 {
   "name": "template_rest_server",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Template ready to use express with TS",
   "main": "index.js",
   "scripts": {
