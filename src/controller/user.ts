@@ -6,7 +6,7 @@ const getUsers = async (req:Request, res:Response) => {
         User.find({ status: true }).countDocuments(),
         User.find({ status: true }).limit(Number(limit)).skip(Number(from)),
     ]);
-    res.json({
+    res.status(200).send({
         total,
         users,
     });
@@ -16,12 +16,12 @@ const postUsers = async (req:Request, res:Response) => {
     const user = new User(data);
     const existUser = await User.findOne({ email: user.email });
     if (existUser) {
-        return res.json({
+        return  res.status(400).send({
             msg: "Error the email entered already exists!",
         });
     }
     await user.save();
-    res.json({
+    res.status(200).send({
         body: user,
     });
 };
